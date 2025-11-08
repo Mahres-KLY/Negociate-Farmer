@@ -1,0 +1,116 @@
+﻿  Game.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\source\Game.cpp(54,13): error C2660: 'HUD::render' : la fonction ne prend pas 1 arguments
+      C:\Users\4pfba\source\repos\C++\Suicidal Project\include\HUD.hpp(10,10):
+      voir la déclaration de 'HUD::render'
+      C:\Users\4pfba\source\repos\C++\Suicidal Project\source\Game.cpp(54,13):
+      lors de la tentative de mise en correspondance de la liste des arguments '(sf::RenderWindow)'
+  
+  GameOver.cpp
+  FreeFuncs.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/FreeFuncs.cpp')
+  
+  ImageLayer.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/ImageLayer.cpp')
+  
+  LayerGroup.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/LayerGroup.cpp')
+  
+  Map.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/Map.cpp')
+  
+  Object.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/Object.cpp')
+  
+  ObjectGroup.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/ObjectGroup.cpp')
+  
+  ObjectTypes.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/ObjectTypes.cpp')
+  
+  Property.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/Property.cpp')
+  
+  TileLayer.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/TileLayer.cpp')
+  
+  Tileset.cpp
+C:\Users\4pfba\source\repos\C++\Suicidal Project\include\tmxlite\detail\Log.hpp(145,37): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiler le fichier source 'source/src/Tileset.cpp')
+  
+  Start.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,35): error C2665: 'sf::Text::Text' : aucune fonction surchargée n’a pu convertir tous les types d’arguments.
+  (compiler le fichier source 'source/Start.cpp')
+      C:\SFML-3.0.2\include\SFML\Graphics\Text.hpp(93,5):
+      est peut-être 'sf::Text::Text(const sf::Font &&,sf::String,unsigned int)'
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,35):
+          'sf::Text::Text(const sf::Font &&,sf::String,unsigned int)' : impossible de convertir l'argument 1 de 'const char [5]' en 'const sf::Font &&'
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+              Raison : impossible de convertir de 'const char [5]' en 'const sf::Font'
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+              'sf::Font::Font' : aucune fonction surchargée n’a pu convertir tous les types d’arguments.
+                  C:\SFML-3.0.2\include\SFML\Graphics\Font.hpp(461,1):
+                  est peut-être 'sf::Font::Font(sf::Font &&)'
+                      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                      'sf::Font::Font(sf::Font &&)' : impossible de convertir l'argument 1 de 'const char [5]' en 'sf::Font &&'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          Raison : impossible de convertir de 'const char [5]' en 'sf::Font'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          La conversion requiert un second constructeur ou opérateur de conversion défini par l'utilisateur
+                  C:\SFML-3.0.2\include\SFML\Graphics\Font.hpp(461,1):
+                  ou       'sf::Font::Font(const sf::Font &)'
+                      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                      'sf::Font::Font(const sf::Font &)' : impossible de convertir l'argument 1 de 'const char [5]' en 'const sf::Font &'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          Raison : impossible de convertir de 'const char [5]' en 'const sf::Font'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          La conversion requiert un second constructeur ou opérateur de conversion défini par l'utilisateur
+                  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                  lors de la tentative de mise en correspondance de la liste des arguments '(const char [5])'
+      C:\SFML-3.0.2\include\SFML\Graphics\Text.hpp(87,5):
+      ou       'sf::Text::Text(const sf::Font &,sf::String,unsigned int)'
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,35):
+          'sf::Text::Text(const sf::Font &,sf::String,unsigned int)' : impossible de convertir l'argument 1 de 'const char [5]' en 'const sf::Font &'
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+              Raison : impossible de convertir de 'const char [5]' en 'const sf::Font'
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+              'sf::Font::Font' : aucune fonction surchargée n’a pu convertir tous les types d’arguments.
+                  C:\SFML-3.0.2\include\SFML\Graphics\Font.hpp(461,1):
+                  est peut-être 'sf::Font::Font(sf::Font &&)'
+                      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                      'sf::Font::Font(sf::Font &&)' : impossible de convertir l'argument 1 de 'const char [5]' en 'sf::Font &&'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          Raison : impossible de convertir de 'const char [5]' en 'sf::Font'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          La conversion requiert un second constructeur ou opérateur de conversion défini par l'utilisateur
+                  C:\SFML-3.0.2\include\SFML\Graphics\Font.hpp(461,1):
+                  ou       'sf::Font::Font(const sf::Font &)'
+                      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                      'sf::Font::Font(const sf::Font &)' : impossible de convertir l'argument 1 de 'const char [5]' en 'const sf::Font &'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          Raison : impossible de convertir de 'const char [5]' en 'const sf::Font'
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                          La conversion requiert un second constructeur ou opérateur de conversion défini par l'utilisateur
+                  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,56):
+                  lors de la tentative de mise en correspondance de la liste des arguments '(const char [5])'
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,35):
+      lors de la tentative de mise en correspondance de la liste des arguments '(const char [5], sf::Font, _Ty)'
+          with
+          [
+              _Ty=int
+          ]
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3630,35):
+      le contexte d’instanciation du modèle (le plus ancien) est
+          C:\Users\4pfba\source\repos\C++\Suicidal Project\source\Start.cpp(39,16):
+          voir la référence à l'instanciation de la fonction modèle 'std::unique_ptr<sf::Text,std::default_delete<sf::Text>> std::make_unique<sf::Text,const char(&)[5],sf::Font&,int,0>(const char (&)[5],sf::Font &,int &&)' en cours de compilation
+  
+  World.cpp
+  Génération de code en cours...
