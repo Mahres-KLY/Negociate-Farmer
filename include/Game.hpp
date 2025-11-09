@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "World.hpp"
-#include "HUD.hpp"
 #include "Audio.hpp"
 
 using namespace std;
@@ -13,9 +12,8 @@ private:
     RenderWindow window;
     Player player;
     World world;
-    HUD hud;
     Audio audio;
-    Clock clock; // Pour gérer le deltaTime
+    Clock clock; // Pour gÃ©rer le deltaTime
 
 public:
     Gameplay();
