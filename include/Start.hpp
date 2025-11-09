@@ -7,7 +7,7 @@
 using namespace sf;
 using namespace std;
 
-// Taille de la fenêtre
+// Taille de la fenÃªtre
 constexpr unsigned int WINDOW_W = 1280;
 constexpr unsigned int WINDOW_H = 720;
 
