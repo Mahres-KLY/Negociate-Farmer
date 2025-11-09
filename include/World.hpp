@@ -10,7 +10,7 @@ class World {
 private:
     Texture tileset;
     vector<Sprite> tiles;
-    unsigned tileSize = 16;   // adapté à Tiny Town
+    unsigned tileSize = 16;   // adaptÃ© Ã  Tiny Town
 public:
     World();
     bool load(const string& texturePath, unsigned widthInTiles, unsigned heightInTiles);
