@@ -5,7 +5,7 @@ using namespace std;
 using namespace sf;
 
 Gameplay::Gameplay() {
-    // Création de la fenêtre
+    // CrÃ©ation de la fenÃªtre
     window.create(VideoMode({ 1280u, 720u }), "KingTalk - Gameplay");
 
     // Chargement du monde
@@ -16,18 +16,23 @@ Gameplay::Gameplay() {
         cerr << "Erreur : impossible de charger le monde !" << endl;
     }
 
-    // Chargement du joueur
-    if (!player.load("assets/characters/player.png"))
-        cerr << "Erreur: impossible de charger le joueur." << endl;
+    /// Chargement du joueur
+    //if (!player.load("assets/characters/player.png"))
+        //cerr << "Erreur: impossible de charger le joueur." << endl;
 
     
-    // HUD
-    hud.loadFont("assets/fonts/arial.ttf");
-    hud.setScore(0);
+    /// HUD
+   // hud.loadFont("assets/fonts/arial.ttf");
+    //hud.setScore(0);
 
-    // Musique
-    audio.loadMusic("assets/audio/music.ogg");
-    audio.playMusic();
+    // --- Musique ---
+    if (!audio.loadMusic("assets/Audio/LilNasX.ogg")) { //passer de m4a Ã  ogg
+        cerr << "Erreur : impossible de charger la musique d'ambiance !" << endl;
+    }
+    else {
+        audio.setVolume(70.f);
+        audio.playMusic(true); // true = boucle infinie
+    }
     
 }
 
@@ -42,7 +47,7 @@ void Gameplay::run() {
                 window.close();
         }
 
-        // Mise à jour du joueur
+        // Mise Ã  jour du joueur
         float dt = clock.restart().asSeconds();
         player.handleInput();
         player.update(dt);
@@ -51,7 +56,7 @@ void Gameplay::run() {
         window.clear(Color::Black);
         world.render(window);
         player.render(window);
-        hud.render(window);
+        //hud.render(window);
         window.display();
     }
 }
