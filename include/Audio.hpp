@@ -1,12 +1,21 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <string>
 
 using namespace std;
 using namespace sf;
 
 class Audio {
 public:
-    void playMusic();
+    Audio();
+    ~Audio();
+
+    bool loadMusic(const string& filePath);
+    void playMusic(bool loop = true);
     void stopMusic();
+    void setVolume(float volume);
+
+private:
+    Music music;
 };
