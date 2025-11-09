@@ -10,21 +10,30 @@ World::World() {}
 
 bool World::load(const string& texturePath, unsigned widthInTiles, unsigned heightInTiles) {
     // Charger le tilesheet
-    if (!tileset.loadFromFile(texturePath)) {
-        cerr << "Erreur : impossible de charger le tileset '" << texturePath << "'\n";
-        return false;
+    vector<string> tilesetFiles = {
+     "assets/environments/tilemap_packed.png",
+     "assets/environments/Female Cow Brown.png",
+     "assets/environments/Road copiar.png",
+     "assets/environments/Chicken Red.png"
+    };
+
+    m_tilesets.clear(); // vide avant de recharger
+    m_tilesets.resize(tilesetFiles.size());
+
+    for (size_t i = 0; i < tilesetFiles.size(); ++i) {
+        if (!m_tilesets[i].loadFromFile(tilesetFiles[i])) {
+            cout << "Erreur chargement tileset : " << tilesetFiles[i] << endl;
+            return false;
+        }
     }
 
-    tiles.clear();
-    tiles.reserve(widthInTiles * heightInTiles);
-
     
-    // Créer les sprites de tuiles
+    // CrÃ©er les sprites de tuiles
     for (unsigned y = 0; y < heightInTiles; ++y) {
         for (unsigned x = 0; x < widthInTiles; ++x) {
-            sf::Sprite sprite(tileset);
+            Sprite sprite(tileset);
 
-            // Ici, on choisit toujours la tuile en haut à gauche du tilesheet pour l'instant
+            // Ici, on choisit toujours la tuile en haut Ã  gauche du tilesheet pour l'instant
             sprite.setTextureRect(IntRect(0, 0, tileSize, tileSize));
 
             sprite.setPosition(static_cast<float>(x * tileSize),
