@@ -1,19 +1,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-using namespace std;
+#include <iostream>
 using namespace sf;
+using namespace std;
 
 class Player {
 private:
     Texture texture;
-    unique_ptr<Sprite> sprite;
-    float speed = 200.f;
+    Sprite sprite;
+    float speed;
 
 public:
     Player();
-    bool load(const string& path);
-    void handleInput();
-    void update(float dt);
-    void render(sf::RenderWindow& window);
+    void handleInput(float deltaTime);
+    void update(float deltaTime);
+    void draw(RenderWindow& window);
+    void move(Vector2f dir);
+    Vector2f getPosition() const;
+    FloatRect getBounds() const;
 };
