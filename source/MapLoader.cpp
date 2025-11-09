@@ -1,4 +1,5 @@
 #include "MapLoader.hpp"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 using namespace std;
@@ -8,7 +9,7 @@ using namespace tmx;
 
 bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
 {
-    tmx::Map map;
+    Map map;
     if (!map.load("assets/World/MapFarmers.tmx")) {
         cout << "Erreur chargement de la map: " << endl;
         return false;
@@ -24,31 +25,23 @@ bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
 
 
 
+    //Chargement de tout mes tilesets dans ma Map
+    vector<string> tilesetFiles = {
+     "assets/environments/tilemap_packed.png",
+     "assets/environments/Female Cow Brown.png",
+     "assets/environments/Road copiar.png",
+     "assets/environments/Chicken Red.png"
+    };
 
+    m_tilesets.clear(); // vide avant de recharger
+    m_tilesets.resize(tilesetFiles.size());
 
-
-    // Chargement du tileset
-    if (!m_tileset.loadFromFile("assets/environments/tilemap_packed.png")) {
-        cout << "Erreur chargement tileset (Map): " << tilesetPath << endl;
-        return false;
+    for (size_t i = 0; i < tilesetFiles.size(); ++i) {
+        if (!m_tilesets[i].loadFromFile(tilesetFiles[i])) {
+            cout << "Erreur chargement tileset : " << tilesetFiles[i] << endl;
+            return false;
+        }
     }
-
-    if (!m_tileset.loadFromFile("assets/environments/Female Cow Brown.png")) {
-        cout << "Erreur chargement tileset (Cows): " << tilesetPath << endl;
-        return false;
-    }
-
-    if (!m_tileset.loadFromFile("assets/environments/Road copiar.png")) {
-        cout << "Erreur chargement tileset (Road copiar): " << tilesetPath << endl;
-        return false;
-    }
-
-    if (!m_tileset.loadFromFile("assets/environments/Chicken Red.png")) {
-        cout << "Erreur chargement tileset (Chickens): " << tilesetPath << endl;
-        return false;
-    }
-
-
 
 
 
@@ -65,8 +58,8 @@ bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
             if (tileNumber == 0) continue;
 
             tileNumber -= 1;
-            int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-            int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
+            int tu = tileNumber % (m_tilesets[0].getSize().x / tileSize.x);
+            int tv = tileNumber / (m_tilesets[0].getSize().x / tileSize.x);
 
             Vertex* quad = &m_vertices[(x + y * mapSize.x) * 4];
             quad[0].position = Vector2f(x * tileSize.x, y * tileSize.y);
@@ -86,6 +79,6 @@ bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
 
 void MapLoader::draw(RenderTarget& target, RenderStates states) const
 {
-    states.texture = &m_tileset;
+    states.texture = &m_tilesets[0];
     target.draw(m_vertices, states);
 }
