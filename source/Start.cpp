@@ -6,7 +6,7 @@ using namespace std;
 using namespace sf;
 
 Start::Start() {
-    // Création de la fenêtre
+    // CrÃ©ation de la fenÃªtre
     window.create(VideoMode(Vector2u(WINDOW_W, WINDOW_H)), "KingTalk - Menu");
 
     // Chargement du fond
@@ -15,12 +15,10 @@ Start::Start() {
         exit(1);
     }
 
-    //  On attache la texture APRÈS l’avoir chargée
+    //  On attache la texture APRÃˆS lâ€™avoir chargÃ©e
     backgroundSprite = make_unique<Sprite>(backgroundTexture);
-    backgroundSprite->setScale(
-        Vector2f(static_cast<float>(WINDOW_W) / backgroundTexture.getSize().x,
-            static_cast<float>(WINDOW_H) / backgroundTexture.getSize().y)
-    );
+    backgroundSprite->setScale(Vector2f(static_cast<float>(WINDOW_W) / backgroundTexture.getSize().x,
+                                        static_cast<float>(WINDOW_H) / backgroundTexture.getSize().y));
 
     // Police
     if (!font.openFromFile("assets/fonts/arial.ttf")) {
