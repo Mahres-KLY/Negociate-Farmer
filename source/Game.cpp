@@ -16,14 +16,9 @@ Gameplay::Gameplay() {
         cerr << "Erreur : impossible de charger le monde !" << endl;
     }
 
-    /// Chargement du joueur
-    //if (!player.load("assets/characters/player.png"))
+     Chargement du joueur
+    if (!player.load("assets/characters/player.png"))
         //cerr << "Erreur: impossible de charger le joueur." << endl;
-
-    
-    /// HUD
-   // hud.loadFont("assets/fonts/arial.ttf");
-    //hud.setScore(0);
 
     // --- Musique ---
     if (!audio.loadMusic("assets/Audio/LilNasX.ogg")) { //passer de m4a à ogg
@@ -56,7 +51,7 @@ void Gameplay::run() {
         window.clear(Color::Black);
         world.render(window);
         player.render(window);
-        //hud.render(window);
         window.display();
     }
 }
+
