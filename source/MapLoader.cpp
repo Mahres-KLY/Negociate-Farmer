@@ -6,34 +6,33 @@ using namespace std;
 using namespace sf;
 using namespace tmx;
 
-
-bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
-{
+bool MapLoader::load(const string& tmxFile, const string& tilesetPath) {
     Map map;
-    if (!map.load("assets/World/MapFarmers.tmx")) {
-        cout << "Erreur chargement de la map: " << endl;
+    if (!map.load(tmxFile)) {
+        cout << "Erreur chargement de la map: " << tmxFile << endl;
         return false;
     }
 
     const auto& layers = map.getLayers();
-    if (layers.empty()) return false;
+    if (layers.empty()) {
+        cout << "Aucun calque trouvé dans la map !" << endl;
+        return false;
+    }
 
-    // On prend le premier calque (terrain)
     const auto* layer = dynamic_cast<const TileLayer*>(layers[0].get());
-    if (!layer) return false;
+    if (!layer) {
+        cout << "Le premier calque n'est pas un TileLayer !" << endl;
+        return false;
+    }
 
-
-
-
-    //Chargement de tout mes tilesets dans ma Map
     vector<string> tilesetFiles = {
-     "assets/environments/tilemap_packed.png",
-     "assets/environments/Female Cow Brown.png",
-     "assets/environments/Road copiar.png",
-     "assets/environments/Chicken Red.png"
+        "assets/environments/tilemap_packed.png",
+        "assets/environments/Female Cow Brown.png",
+        "assets/environments/Road copiar.png",
+        "assets/environments/Chicken Red.png"
     };
 
-    m_tilesets.clear(); // vide avant de recharger
+    m_tilesets.clear();
     m_tilesets.resize(tilesetFiles.size());
 
     for (size_t i = 0; i < tilesetFiles.size(); ++i) {
@@ -43,12 +42,10 @@ bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
         }
     }
 
-
-
     const auto tileSize = map.getTileSize();
     const auto mapSize = map.getTileCount();
 
-    m_vertices.setPrimitiveType(Quads);
+    m_vertices.setPrimitiveType(PrimitiveType::Quads);
     m_vertices.resize(mapSize.x * mapSize.y * 4);
 
     const auto& tiles = layer->getTiles();
@@ -62,23 +59,22 @@ bool MapLoader::load(const string& tmxFile, const string& tilesetPath)
             int tv = tileNumber / (m_tilesets[0].getSize().x / tileSize.x);
 
             Vertex* quad = &m_vertices[(x + y * mapSize.x) * 4];
-            quad[0].position = Vector2f(x * tileSize.x, y * tileSize.y);
-            quad[1].position = Vector2f((x + 1) * tileSize.x, y * tileSize.y);
-            quad[2].position = Vector2f((x + 1) * tileSize.x, (y + 1) * tileSize.y);
-            quad[3].position = Vector2f(x * tileSize.x, (y + 1) * tileSize.y);
+            quad[0].position = sf::Vector2f(static_cast<float>(x * tileSize.x), static_cast<float>(y * tileSize.y));
+            quad[1].position = sf::Vector2f(static_cast<float>((x + 1) * tileSize.x), static_cast<float>(y * tileSize.y));
+            quad[2].position = sf::Vector2f(static_cast<float>((x + 1) * tileSize.x), static_cast<float>((y + 1) * tileSize.y));
+            quad[3].position = sf::Vector2f(static_cast<float>(x * tileSize.x), static_cast<float>((y + 1) * tileSize.y));
 
-            quad[0].texCoords = Vector2f(tu * tileSize.x, tv * tileSize.y);
-            quad[1].texCoords = Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-            quad[2].texCoords = Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
-            quad[3].texCoords = Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+            quad[0].texCoords = sf::Vector2f(static_cast<float>(tu * tileSize.x), static_cast<float>(tv * tileSize.y));
+            quad[1].texCoords = sf::Vector2f(static_cast<float>((tu + 1) * tileSize.x), static_cast<float>(tv * tileSize.y));
+            quad[2].texCoords = sf::Vector2f(static_cast<float>((tu + 1) * tileSize.x), static_cast<float>((tv + 1) * tileSize.y));
+            quad[3].texCoords = sf::Vector2f(static_cast<float>(tu * tileSize.x), static_cast<float>((tv + 1) * tileSize.y));
         }
     }
 
     return true;
 }
 
-void MapLoader::draw(RenderTarget& target, RenderStates states) const
-{
+void MapLoader::draw(RenderTarget& target, RenderStates states) const {
     states.texture = &m_tilesets[0];
     target.draw(m_vertices, states);
 }
