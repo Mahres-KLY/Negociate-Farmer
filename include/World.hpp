@@ -8,7 +8,7 @@ using namespace sf;
 
 class World {
 private:
-    Texture tileset;
+    vector<Texture> m_tilesets;
     vector<Sprite> tiles;
     unsigned tileSize = 16;   // adapté à Tiny Town
 public:
