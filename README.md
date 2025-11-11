@@ -172,7 +172,6 @@ En accès PRIVATE : Music music -> objet SFML qui représente le flux audio
 CONTRAINTES:
 **Jeu en cours de developpement**
 Pas de page narrative
-Pas de page de fin
 Pas de cinématiques entre les dialogues
 
 
