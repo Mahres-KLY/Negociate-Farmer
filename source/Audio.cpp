@@ -20,12 +20,13 @@ bool Audio::loadMusic(const string& filePath) {
 }
 
 void Audio::playMusic(bool loop) {
+    music.setLooping(loop);  // SFML 3.0 utilise setLooping au lieu de setLoop
     music.play();
-    music.stop();
 }
 
-
-void Audio::stopMusic() { music.stop(); }
+void Audio::stopMusic() {
+    music.stop();
+}
 
 void Audio::setVolume(float volume) {
     if (volume < 0.f) volume = 0.f;
