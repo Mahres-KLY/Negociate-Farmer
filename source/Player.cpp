@@ -1,15 +1,19 @@
 #include "Player.hpp"
 
-Player::Player() {
-    if (!texture.loadFromFile("assets/player.png")) {
+Player::Player() : speed(200.f), textureLoaded(false) {
+    textureLoaded = texture.loadFromFile("assets/player.png");
+    if (!textureLoaded) {
         cout << "Erreur chargement texture du joueur !" << endl;
+        return;
     }
+
     sprite = Sprite(texture);
-    sprite.setPosition(Vector2f(400, 300));
-    speed = 200.f;
+    sprite.setPosition(Vector2f(400.f, 300.f));
 }
 
 void Player::handleInput(float deltaTime) {
+    if (!textureLoaded) return;
+
     Vector2f movement(0.f, 0.f);
 
     if (Keyboard::isKeyPressed(Keyboard::Key::Z)) movement.y -= speed * deltaTime;
@@ -25,7 +29,9 @@ void Player::update(float deltaTime) {
 }
 
 void Player::draw(RenderWindow& window) {
-    window.draw(sprite);
+    if (textureLoaded) {
+        window.draw(sprite);
+    }
 }
 
 void Player::move(Vector2f dir) {
