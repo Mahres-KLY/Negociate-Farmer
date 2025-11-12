@@ -1,13 +1,15 @@
 #include "Player.hpp"
 
-Player::Player() : speed(200.f), textureLoaded(false) {
-    textureLoaded = texture.loadFromFile("assets/player.png");
+Player::Player()
+    : speed(200.f),
+    textureLoaded(texture.loadFromFile("assets/player.png")),
+    sprite(texture)
+{
     if (!textureLoaded) {
         cout << "Erreur chargement texture du joueur !" << endl;
         return;
     }
 
-    sprite = Sprite(texture);
     sprite.setPosition(Vector2f(400.f, 300.f));
 }
 
