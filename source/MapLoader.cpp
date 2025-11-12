@@ -19,8 +19,8 @@ bool MapLoader::load(const string& tmxFile, const string& tilesetPath) {
     const auto tileSize = map.getTileSize();
     const auto mapSize = map.getTileCount();
 
-    m_vertices.setPrimitiveType(PrimitiveType::Quads);
-    m_vertices.resize(mapSize.x * mapSize.y * 4);
+    m_vertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+    m_vertices.resize(6);
 
     const auto& tiles = layer->getTiles();
     for (unsigned y = 0; y < mapSize.y; ++y) {
