@@ -20,13 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Audio.cpp" />
-    <ClCompile Include="source\Cinematique.cpp" />
-    <ClCompile Include="source\Game.cpp" />
-    <ClCompile Include="source\GameOver.cpp" />
-    <ClCompile Include="source\HUD.cpp" />
+    <ClCompile Include="source\EndScreen.cpp" />
+    <ClCompile Include="source\Gameplay.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MapLoader.cpp" />
-    <ClCompile Include="source\NarrativeMan.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\src\FreeFuncs.cpp" />
     <ClCompile Include="source\src\ImageLayer.cpp" />
@@ -40,16 +37,13 @@
     <ClCompile Include="source\src\Tileset.cpp" />
     <ClCompile Include="source\Start.cpp" />
     <ClCompile Include="source\World.cpp" />
+    <ClCompile Include="test SFML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Audio.hpp" />
-    <ClInclude Include="include\Cinematique.hpp" />
-    <ClInclude Include="include\Game.hpp" />
-    <ClInclude Include="include\GameOver.hpp" />
+    <ClInclude Include="include\EndScreen.hpp" />
     <ClInclude Include="include\Gameplay.hpp" />
-    <ClInclude Include="include\HUD.hpp" />
     <ClInclude Include="include\MapLoader.hpp" />
-    <ClInclude Include="include\NarrativeMan.hpp" />
     <ClInclude Include="include\Player.hpp" />
     <ClInclude Include="include\Start.hpp" />
     <ClInclude Include="include\World.hpp" />
@@ -154,12 +148,16 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\SFML-3.0.2\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\SFML-3.0.2\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
