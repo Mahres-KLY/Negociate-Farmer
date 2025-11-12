@@ -1,5 +1,6 @@
 #include "EndScreen.hpp"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 using namespace sf;
@@ -9,14 +10,14 @@ EndScreen::EndScreen(RenderWindow* window)
 
     // Chargement de la police
     if (!m_font.openFromFile("assets/fonts/arial.ttf")) {
-        cerr << "Erreur : impossible de charger la police pour l'écran de fin !" << endl;
+        cerr << "Erreur : impossible de charger la police pour l'Ã©cran de fin !" << endl;
     }
 
     // Fond semi-transparent
     m_background.setSize(Vector2f(1280.f, 720.f));
     m_background.setFillColor(Color(0, 0, 0, 220));
 
-    // Boîte du titre
+    // BoÃ®te du titre
     m_titleBox.setSize(Vector2f(1000.f, 150.f));
     m_titleBox.setPosition(Vector2f(140.f, 100.f));
     m_titleBox.setOutlineThickness(3.f);
@@ -64,7 +65,7 @@ void EndScreen::setupTexts() {
     m_titleBox.setFillColor(Color(endingColor.r / 4, endingColor.g / 4, endingColor.b / 4, 200));
     m_titleBox.setOutlineColor(endingColor);
 
-    // Centrer le titre dans la boîte
+    // Centrer le titre dans la boÃ®te
     FloatRect titleBounds = m_titleText.getLocalBounds();
     m_titleText.setPosition(
         Vector2f(640.f - titleBounds.size.x / 2.f,
@@ -119,7 +120,7 @@ string EndScreen::getEndingDescription(EndingType type) {
     case EndingType::FAMILLE_B_WIN:
         return "Tes decisions ont permis a la Famille Beatrice de triompher !\n"
             "Maitresse Beatrice prend les renes et instaure de nouvelles regles.\n"
-            "La Famille Albert se retire, deçue mais respectueuse.\n\n"
+            "La Famille Albert se retire, deÃ§ue mais respectueuse.\n\n"
             "Une nouvelle ere commence sous la banniere verte,\n"
             "portant espoir et changement pour la ferme.";
 
@@ -198,7 +199,7 @@ void EndScreen::render() {
     m_background.setFillColor(bgColor);
     m_window->draw(m_background);
 
-    // Boîte titre avec animation
+    // BoÃ®te titre avec animation
     if (elapsed > 0.5f) {
         Color boxColor = m_titleBox.getFillColor();
         boxColor.a = static_cast<uint8_t>(min(200.f, (elapsed - 0.5f) * 300.f));
