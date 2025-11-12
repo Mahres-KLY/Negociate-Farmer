@@ -9,6 +9,7 @@ private:
     Texture texture;
     Sprite sprite;
     float speed;
+    bool textureLoaded;
 
 public:
     Player();
