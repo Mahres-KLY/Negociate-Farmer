@@ -1,5 +1,6 @@
 #include "Gameplay.hpp"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 using namespace sf;
@@ -23,11 +24,11 @@ Gameplay::Gameplay(RenderWindow* window) : m_window(window) {
         cerr << "Erreur chargement police !" << endl;
     }
 
-    // Texte de prompt (près du joueur)
-    m_promptText = Text(m_font);
-    m_promptText.setCharacterSize(18);
-    m_promptText.setFillColor(Color::White);
-    m_promptText.setString("");
+    // Texte de prompt (près du joueur) - avec unique_ptr
+    m_promptText = make_unique<Text>(m_font);
+    m_promptText->setCharacterSize(18);
+    m_promptText->setFillColor(Color::White);
+    m_promptText->setString("");
 
     // Boîte de dialogue
     m_dialogueBox.setSize(Vector2f(1000.f, 200.f));
@@ -36,17 +37,17 @@ Gameplay::Gameplay(RenderWindow* window) : m_window(window) {
     m_dialogueBox.setOutlineColor(Color::White);
     m_dialogueBox.setOutlineThickness(2.f);
 
-    // Texte de dialogue
-    m_dialogueText = Text(m_font);
-    m_dialogueText.setCharacterSize(20);
-    m_dialogueText.setFillColor(Color::White);
+    // Texte de dialogue - avec unique_ptr
+    m_dialogueText = make_unique<Text>(m_font);
+    m_dialogueText->setCharacterSize(20);
+    m_dialogueText->setFillColor(Color::White);
 
-    // Textes de choix (max 3 choix)
+    // Textes de choix (max 3 choix) - avec unique_ptr
     for (int i = 0; i < 3; ++i) {
-        Text choiceText(m_font);
-        choiceText.setCharacterSize(18);
-        choiceText.setFillColor(Color::White);
-        m_choiceTexts.push_back(choiceText);
+        auto choiceText = make_unique<Text>(m_font);
+        choiceText->setCharacterSize(18);
+        choiceText->setFillColor(Color::White);
+        m_choiceTexts.push_back(move(choiceText));
 
         RectangleShape choiceBox;
         choiceBox.setSize(Vector2f(960.f, 50.f));
@@ -62,13 +63,13 @@ void Gameplay::initializeNPCs() {
     m_npcs.emplace_back(Vector2f(640, 360), "Voyageur", "voyageur", Clan::NONE, true, false);
 
     // Famille A (Bleu) - 2 fermiers + 1 boss
-    m_npcs.emplace_back(Vector2f(300, 200), "Jean le Fermier", "fermier_a1", Clan::FAMILLE_A);
-    m_npcs.emplace_back(Vector2f(400, 250), "Marie la Fermière", "fermiere_a1", Clan::FAMILLE_A);
+    m_npcs.emplace_back(Vector2f(300, 200), "Jean", "fermier_a1", Clan::FAMILLE_A);
+    m_npcs.emplace_back(Vector2f(400, 250), "Pierre", "fermier_a1", Clan::FAMILLE_A);
     m_npcs.emplace_back(Vector2f(200, 150), "Maître Albert", "boss_a", Clan::FAMILLE_A, false, true);
 
     // Famille B (Vert) - 2 fermiers + 1 boss
-    m_npcs.emplace_back(Vector2f(900, 200), "Pierre le Fermier", "fermier_b1", Clan::FAMILLE_B);
-    m_npcs.emplace_back(Vector2f(800, 250), "Sophie la Fermière", "fermiere_b1", Clan::FAMILLE_B);
+    m_npcs.emplace_back(Vector2f(900, 200), "Lea", "fermierer_b1", Clan::FAMILLE_B);
+    m_npcs.emplace_back(Vector2f(800, 250), "Sophie", "fermiere_b1", Clan::FAMILLE_B);
     m_npcs.emplace_back(Vector2f(1000, 150), "Maîtresse Béatrice", "boss_b", Clan::FAMILLE_B, false, true);
 }
 
@@ -76,7 +77,7 @@ void Gameplay::loadDialogues() {
     // VOYAGEUR (introduction sans choix)
     Dialogue intro;
     intro.speaker = "Voyageur";
-    intro.text = "Bienvenue, jeune voyageur. Cette ferme est déchirée par deux familles rivales depuis des années. \nLa Famille Albert à l'ouest (bleu) et la Famille Béatrice à l'est (vert) se disputent le contrôle total. \nVa leur parler et trouve une solution. Bonne chance !";
+    intro.text = "Bienvenue à la ferme d'Aurore, voyageur ! Cette ferme est déchirée par deux grandes familles rivales depuis des années. \nLa Famille d'Albert à l'ouest et la Famille de Béatrice à l'est se disputent depuis des années le contrôle total de ce territoire. \nSi tu penses pouvoir les résonner, a leur parler et trouve une solution avant que le pire n'arrive. Bonne chance !";
     intro.isEndDialogue = true;
     m_npcs[0].dialogues.push_back(intro);
 
@@ -91,27 +92,27 @@ void Gameplay::loadDialogues() {
     };
     m_npcs[1].dialogues.push_back(jeanD1);
 
-    // FERMIÈRE A1 - Marie
-    Dialogue marieD1;
-    marieD1.speaker = "Marie";
-    marieD1.text = "Notre Maître Albert est un homme juste. Si seulement cette Béatrice pouvait l'admettre... \nQue penses-tu de tout ça ?";
-    marieD1.choices = {
+    // FERMIÈRE A1 - Pierre
+    Dialogue pierreD1;
+    pierreD1.speaker = "Pierre";
+    pierreD1.text = "Notre Maître Albert est un homme juste. Si seulement cette Béatrice pouvait l'admettre... \nQue penses-tu de tout ça ?";
+    pierreD1.choices = {
         {"Albert mérite de diriger cette ferme.", Clan::FAMILLE_A, 1},
         {"Vous devriez trouver un compromis équitable.", Clan::NONE, 0},
         {"Béatrice semble plus compétente.", Clan::FAMILLE_B, -1}
     };
-    m_npcs[2].dialogues.push_back(marieD1);
+    m_npcs[2].dialogues.push_back(pierreD1);
 
-    // FERMIER B1 - Pierre
-    Dialogue pierreD1;
-    pierreD1.speaker = "Pierre";
-    pierreD1.text = "Salut l'étranger ! Tu vois cette terre ? C'est nous qui la rendons fertile ! \nCette famille de l'ouest ne fait que se plaindre !";
-    pierreD1.choices = {
+    // FERMIER B1 - Lea
+    Dialogue leaD1;
+    leaD1.speaker = "Lea";
+    leaD1.text = "Salut l'étranger ! Tu vois cette terre ? C'est nous qui la rendons fertile ! \nCette famille de l'ouest ne fait que se plaindre !";
+    leaD1.choices = {
         {"Vous avez l'air de travailleurs acharnés.", Clan::FAMILLE_B, 1},
         {"Chacun a sa part de mérite ici.", Clan::NONE, 0},
         {"La famille de l'ouest semble plus légitime.", Clan::FAMILLE_A, -1}
     };
-    m_npcs[4].dialogues.push_back(pierreD1);
+    m_npcs[4].dialogues.push_back(leaD1);
 
     // FERMIÈRE B1 - Sophie
     Dialogue sophieD1;
@@ -138,7 +139,7 @@ void Gameplay::loadDialogues() {
     // BOSS B - Maîtresse Béatrice
     Dialogue beatriceD1;
     beatriceD1.speaker = "Maîtresse Béatrice";
-    beatriceD1.text = "Tu as interrogé mes fermiers. Alors, quelle est ta décision ? Cette terre mérite un vrai chef !";
+    beatriceD1.text = "TOI ETRANGER ! Je t'ai vu parler à tout mes fermières et aux chiens d'Alber. Tu les as tous interrogé pour trouver une solution à notre problème ? Alors, quelle est ta décision ? Cette terre mérite un vrai chef !";
     beatriceD1.choices = {
         {"Vous devez gouverner seule, Maîtresse.", Clan::FAMILLE_B, 2},
         {"Divisez les terres équitablement avec Albert.", Clan::NONE, 0},
@@ -160,7 +161,7 @@ bool Gameplay::canTalkToBoss(const NPC& boss) {
 }
 
 void Gameplay::startDialogue(NPC& npc) {
-    if (npc.currentDialogueIndex >= npc.dialogues.size()) {
+    if (static_cast<size_t>(npc.currentDialogueIndex) >= npc.dialogues.size()) {
         return;
     }
 
@@ -169,19 +170,19 @@ void Gameplay::startDialogue(NPC& npc) {
     selectedChoice = 0;
 
     Dialogue& currentDialogue = npc.dialogues[npc.currentDialogueIndex];
-    m_dialogueText.setString(currentDialogue.speaker + ": " + currentDialogue.text);
-    m_dialogueText.setPosition(Vector2f(160.f, 500.f));
+    m_dialogueText->setString(currentDialogue.speaker + ": " + currentDialogue.text);
+    m_dialogueText->setPosition(Vector2f(160.f, 500.f));
 
     if (currentDialogue.choices.empty() || currentDialogue.isEndDialogue) {
         // Dialogue informatif
     }
     else {
         for (size_t i = 0; i < currentDialogue.choices.size(); ++i) {
-            m_choiceTexts[i].setString(to_string(i + 1) + ". " + currentDialogue.choices[i].text);
-            m_choiceTexts[i].setPosition(Vector2f(180.f, 550.f + i * 60.f));
+            m_choiceTexts[i]->setString(to_string(i + 1) + ". " + currentDialogue.choices[i].text);
+            m_choiceTexts[i]->setPosition(Vector2f(180.f, 550.f + i * 60.f));
 
             m_choiceBoxes[i].setPosition(Vector2f(160.f, 545.f + i * 60.f));
-            m_choiceBoxes[i].setOutlineColor(i == selectedChoice ? Color::Yellow : Color::White);
+            m_choiceBoxes[i].setOutlineColor(static_cast<int>(i) == selectedChoice ? Color::Yellow : Color::White);
         }
     }
 }
@@ -203,7 +204,7 @@ void Gameplay::handleDialogueInput() {
 
     if (Keyboard::isKeyPressed(Keyboard::Key::Up)) {
         if (!upPressed) {
-            selectedChoice = (selectedChoice - 1 + currentDialogue.choices.size()) % currentDialogue.choices.size();
+            selectedChoice = (selectedChoice - 1 + static_cast<int>(currentDialogue.choices.size())) % static_cast<int>(currentDialogue.choices.size());
             upPressed = true;
         }
     }
@@ -213,7 +214,7 @@ void Gameplay::handleDialogueInput() {
 
     if (Keyboard::isKeyPressed(Keyboard::Key::Down)) {
         if (!downPressed) {
-            selectedChoice = (selectedChoice + 1) % currentDialogue.choices.size();
+            selectedChoice = (selectedChoice + 1) % static_cast<int>(currentDialogue.choices.size());
             downPressed = true;
         }
     }
@@ -233,7 +234,7 @@ void Gameplay::handleDialogueInput() {
     }
 
     for (size_t i = 0; i < currentDialogue.choices.size(); ++i) {
-        m_choiceBoxes[i].setOutlineColor(i == selectedChoice ? Color::Yellow : Color::White);
+        m_choiceBoxes[i].setOutlineColor(static_cast<int>(i) == selectedChoice ? Color::Yellow : Color::White);
     }
 }
 
@@ -241,7 +242,7 @@ void Gameplay::selectChoice(int choiceIndex) {
     if (!currentNPC) return;
 
     Dialogue& currentDialogue = currentNPC->dialogues[currentNPC->currentDialogueIndex];
-    if (choiceIndex >= currentDialogue.choices.size()) return;
+    if (static_cast<size_t>(choiceIndex) >= currentDialogue.choices.size()) return;
 
     Choice& choice = currentDialogue.choices[choiceIndex];
 
@@ -340,18 +341,18 @@ void Gameplay::update() {
             nearNPC = true;
 
             if (npc.isBoss && !canTalkToBoss(npc)) {
-                m_promptText.setString("Tu dois d'abord parler aux fermiers de cette famille !");
-                m_promptText.setPosition(Vector2f(m_player.getPosition().x - 150, m_player.getPosition().y - 40));
+                m_promptText->setString("Tu dois d'abord parler aux fermiers de cette famille !");
+                m_promptText->setPosition(Vector2f(m_player.getPosition().x - 150, m_player.getPosition().y - 40));
                 break;
             }
 
             if (npc.isMainNPC) {
-                m_promptText.setString("Appuie sur E pour parler à " + npc.name);
+                m_promptText->setString("Appuie sur E pour parler à " + npc.name);
             }
             else {
-                m_promptText.setString("Appuie sur E pour parler avec " + npc.name);
+                m_promptText->setString("Appuie sur E pour parler avec " + npc.name);
             }
-            m_promptText.setPosition(Vector2f(m_player.getPosition().x - 100, m_player.getPosition().y - 40));
+            m_promptText->setPosition(Vector2f(m_player.getPosition().x - 100, m_player.getPosition().y - 40));
 
             static bool ePressed = false;
             if (Keyboard::isKeyPressed(Keyboard::Key::E)) {
@@ -374,7 +375,7 @@ void Gameplay::update() {
     }
 
     if (!nearNPC) {
-        m_promptText.setString("");
+        m_promptText->setString("");
     }
 }
 
@@ -389,7 +390,7 @@ void Gameplay::render() {
 
     m_player.draw(*m_window);
 
-    m_window->draw(m_promptText);
+    m_window->draw(*m_promptText);
 
     if (inDialogue) {
         renderDialogue();
@@ -402,13 +403,13 @@ void Gameplay::renderDialogue() {
     if (!currentNPC) return;
 
     m_window->draw(m_dialogueBox);
-    m_window->draw(m_dialogueText);
+    m_window->draw(*m_dialogueText);
 
     Dialogue& currentDialogue = currentNPC->dialogues[currentNPC->currentDialogueIndex];
     if (!currentDialogue.choices.empty() && !currentDialogue.isEndDialogue) {
         for (size_t i = 0; i < currentDialogue.choices.size(); ++i) {
             m_window->draw(m_choiceBoxes[i]);
-            m_window->draw(m_choiceTexts[i]);
+            m_window->draw(*m_choiceTexts[i]);
         }
     }
     else {
