@@ -3,16 +3,15 @@
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
-#include <vector>
+#include <array>
 #include <string>
-#include <iostream>
 
 using namespace std;
 using namespace sf;
 
 class MapLoader : public Drawable {
 private:
-    vector<Texture> m_tilesets;
+    array<Texture, 4> m_tilesets;
     VertexArray m_vertices;
 
 public:
