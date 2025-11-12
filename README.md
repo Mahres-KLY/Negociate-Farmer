@@ -175,14 +175,10 @@ Pas de page narrative
 Pas de cinématiques entre les dialogues
 
 
-Problèmes rencontrés:
-Plusieurs soucis de constructeurs = > Gameplay.cpp & Player.cpp & EndScreen.cpp
-enum "sf::PrimitiveType" n'a pas de membre "Quads"
+
 
 
 Messages d'erreurs non résolu ou imcompris:
 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details = > Log.hpp (????)
 'sf::Text::Text' : aucune fonction surchargée n’a pu convertir tous les types d’arguments = > memory (????)
 'sf::Text' : aucun constructeur par défaut approprié disponible = > EndScreen.cpp & Gameplay.cpp
-'Quads' : nom qualifié non conforme dans une déclaration de membre = > MapLoader.cpp
-'sf::Sprite' : aucun constructeur par défaut approprié disponible = > Player.cpp
