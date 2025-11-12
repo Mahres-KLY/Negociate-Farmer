@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
 #include "Player.hpp"
 #include "MapLoader.hpp"
 #include "EndScreen.hpp"
@@ -44,7 +45,7 @@ struct NPC {
     int currentDialogueIndex = 0;
 
     NPC(Vector2f pos, string name, string id, Clan clan = Clan::NONE, bool main = false, bool boss = false) {
-        shape.setSize({ 40, 60 });
+        shape.setSize(Vector2f(40, 60));
         shape.setPosition(pos);
         this->name = name;
         this->id = id;
@@ -68,9 +69,12 @@ private:
     MapLoader m_map;
     vector<NPC> m_npcs;
     Font m_font;
-    Text m_promptText;
-    Text m_dialogueText;
-    vector<Text> m_choiceTexts;
+
+    // Utilisation de unique_ptr pour les Text (évite le problème de constructeur par défaut)
+    unique_ptr<Text> m_promptText;
+    unique_ptr<Text> m_dialogueText;
+    vector<unique_ptr<Text>> m_choiceTexts;
+
     RectangleShape m_dialogueBox;
     vector<RectangleShape> m_choiceBoxes;
 
