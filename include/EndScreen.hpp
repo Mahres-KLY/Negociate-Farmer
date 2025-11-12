@@ -1,5 +1,4 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -7,10 +6,10 @@ using namespace sf;
 using namespace std;
 
 enum class EndingType {
-    FAMILLE_A_WIN,      // Famille Albert gagne
-    FAMILLE_B_WIN,      // Famille Béatrice gagne
-    PARTAGE_EQUITABLE,  // Partage équitable
-    PLAYER_TAKEOVER     // Le joueur prend le contrôle
+    FAMILLE_A_WIN,
+    FAMILLE_B_WIN,
+    PARTAGE_EQUITABLE,
+    PLAYER_TAKEOVER
 };
 
 class EndScreen {
@@ -31,6 +30,12 @@ private:
     Clock m_animationClock;
     float m_fadeAlpha;
     bool m_isClosing;
+    bool m_fontLoaded;
+
+    void setupTexts();
+    string getEndingTitle(EndingType type);
+    string getEndingDescription(EndingType type);
+    Color getEndingColor(EndingType type);
 
 public:
     EndScreen(RenderWindow* window);
@@ -38,10 +43,4 @@ public:
     void run();
     void render();
     void handleInput();
-
-private:
-    void setupTexts();
-    string getEndingTitle(EndingType type);
-    string getEndingDescription(EndingType type);
-    Color getEndingColor(EndingType type);
 };
