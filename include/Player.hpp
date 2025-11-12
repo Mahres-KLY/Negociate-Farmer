@@ -6,8 +6,8 @@ using namespace std;
 
 class Player {
 private:
-    Texture texture;
     Sprite sprite;
+    Texture texture;
     float speed;
     bool textureLoaded;
 
