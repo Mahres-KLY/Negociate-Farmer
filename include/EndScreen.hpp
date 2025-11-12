@@ -5,6 +5,7 @@
 using namespace sf;
 using namespace std;
 
+
 enum class EndingType {
     FAMILLE_A_WIN,
     FAMILLE_B_WIN,
