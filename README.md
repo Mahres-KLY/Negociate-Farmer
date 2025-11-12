@@ -23,7 +23,7 @@ SFML 3.0.2 https://www.sfml-dev.org/download/sfml/3.0.2/
 TILEMAP (assets Tiny Town) https://kenney.nl/assets/tiny-town
 
 PROPRIETE & INSTALLATION DES FICHIERS POUR SFML 3.0.2:
-Copie des fichiers sfml- se trouvant dans le fichier bin de l'installation de SFML 3.0.2 vers x64 -> Debug, du projet
+Copie des fichiers sfml- se trouvant dans le fichier bin de l'installation de SFML 3.0.2 vers x64 -> Release, du projet
 
 Propriétés de configuration -> Général -> Norme de langage C++ = Norme ISO C++ 17 (/std:c++17)
 C/C++ -> Général-> Autres répertoires Include = C:\SFML-3.0.2\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)
